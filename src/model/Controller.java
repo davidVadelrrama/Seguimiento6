@@ -1,19 +1,20 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Controller implements Serializable {
 
+	public static ArrayList<Cartel> libroFences = new ArrayList<Cartel>();
 	public Controller() {
 		
 	}
-	public void loadFile() {
+	public static void loadFile() {
 		
 		try {
 			FileInputStream fis = new FileInputStream("Datos1.csv");
@@ -35,5 +36,8 @@ public class Controller implements Serializable {
 		}
 		System.out.println();
 	
+	}
+	public static void addElement(Cartel c) {
+		libroFences.add(c);
 	}
 }
