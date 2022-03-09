@@ -5,7 +5,7 @@ import model.*;
 
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
-
+	static Controller control = new Controller();
 	public static void main(String[] args) {
 
 		
@@ -24,8 +24,11 @@ public class Main {
 	public static void switchMenu(int option) {
 
 		switch (option) {
-
 		case 1:
+			control.loadFile();
+			break;
+
+		case 2:
 			System.out.println("Input the width of the bilboard");
 			int ancho = sc.nextInt();
 			System.out.println("Input the height of the bilboard");
@@ -39,12 +42,10 @@ public class Main {
 			System.out.println("bilboard´s brand");
 			String marca = sc.nextLine();
 			Cartel bilboard = new Cartel(ancho, alto, inUse, marca);
-			Controller.addElement(bilboard);
+			control.addElement(bilboard);
 			break;
-		case 2:
-			for (Cartel c : Controller.libroFences) {
-				System.out.println(c);
-			}
+		case 3:
+			
 			break;
 		}
 
