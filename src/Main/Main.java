@@ -15,6 +15,7 @@ public class Main {
 					+ "\n 1) Import publicity bilboard"
 					+ "\n 2) Add new publicity bilboard"
 					+ "\n 3) Show all publicity bilboards" 
+					+ "\n 4) Report of dangerous bilboards"
 					+ "\n 0) quit");
 			option = sc.nextInt();
 			switchMenu(option);
@@ -22,10 +23,12 @@ public class Main {
 	}
 
 	public static void switchMenu(int option) {
-
+		int option2;
 		switch (option) {
 		case 1:
-			control.loadFile();
+			System.out.println("1) Ingresar datos 1" + "\n2) ingresar datos 2");
+			option2 = sc.nextInt();
+			switchMenu2(option2);
 			break;
 
 		case 2:
@@ -35,6 +38,7 @@ public class Main {
 			int alto = sc.nextInt();
 			System.out.println("1) if the bilboard is in use" + "\n2) if the bilboard is not in use");
 			int temp = sc.nextInt();
+			sc.nextLine();
 			boolean inUse = false;
 			if (temp == 1) {
 				inUse = true;
@@ -45,10 +49,33 @@ public class Main {
 			control.addElement(bilboard);
 			break;
 		case 3:
-			
+			control.showFences();
 			break;
+			
+		case 4:
+			
+		break;
+		case 0:
+			System.out.println("good bye bitch");
+		break;
 		}
+		
 
 	}
 
+	private static void switchMenu2(int option) {
+		
+		switch(option) {
+		
+		case 1:
+			control.loadFile1();
+			control.saveFile();
+		break;
+		
+		case 2:
+			control.loadFile2();
+		break;
+	
+		}
+	}
 }

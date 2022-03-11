@@ -51,8 +51,8 @@ public class Cartel {
 
 	@Override
 	public String toString() {
-		return "W" + "H" + "in use"+ "brand" +"\n"+
-				ancho +  alto  + enUso  + marca;
+		return "W " + "|" + " H " + "|" + " in use " + "|" + " brand " +"\n"+
+				ancho + " | " +  alto + " | "  + enUso +" | "  + marca;
 	}
 	
 	
