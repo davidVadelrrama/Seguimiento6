@@ -51,15 +51,19 @@ public class Controller implements Serializable {
 
 	public void loadFile2() {
 		try {
-			FileInputStream fis = new FileInputStream("Datos.csv");
+			FileInputStream fis = new FileInputStream("Datos2.csv");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 			String csv = "";
 			String line;
 			while((line = reader.readLine()) != null) {
 				csv += line;
 			}
-			csv.split("ln");
-			csv.split("\\|");
+			String[] lines = csv.split("ln");
+			for (int i = 1; i<lines.length; i++) {
+				String[] params = lines[i].split("\\|");
+				Cartel cartel = new Cartel(Integer.parseInt(params[0]),Integer.parseInt(params[1]),Boolean.parseBoolean(params[2]),params[3]);
+				libroFences.add(cartel);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

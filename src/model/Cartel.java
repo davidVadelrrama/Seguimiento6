@@ -1,6 +1,8 @@
 package model;
 
-public class Cartel {
+import java.io.Serializable;
+
+public class Cartel implements Serializable{
 	
 	private int ancho;
 	private int alto;
