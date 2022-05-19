@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,23 +30,21 @@ public class Controller implements Serializable {
 			String csv = "";
 			String line;
 			while ((line = reader.readLine()) != null) {
-				csv += line+"\n";
+				csv += line + "\n";
 			}
 			String[] lines = csv.split("\n");
-			for (int i = 1; i<lines.length; i++) {
+			for (int i = 1; i < lines.length; i++) {
 				String[] params = lines[i].split("\\|");
-				Cartel cartel = new Cartel(Integer.parseInt(params[0]),Integer.parseInt(params[1]),Boolean.parseBoolean(params[2]),params[3]);
+				Cartel cartel = new Cartel(Integer.parseInt(params[0]), Integer.parseInt(params[1]),
+						Boolean.parseBoolean(params[2]), params[3]);
 				libroFences.add(cartel);
 			}
-			
 
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println();
 
 	}
 
@@ -55,13 +54,14 @@ public class Controller implements Serializable {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 			String csv = "";
 			String line;
-			while((line = reader.readLine()) != null) {
-				csv += line;
+			while ((line = reader.readLine()) != null) {
+				csv += line + "\n";
 			}
-			String[] lines = csv.split("ln");
-			for (int i = 1; i<lines.length; i++) {
+			String[] lines = csv.split("\n");
+			for (int i = 1; i < lines.length; i++) {
 				String[] params = lines[i].split("\\|");
-				Cartel cartel = new Cartel(Integer.parseInt(params[0]),Integer.parseInt(params[1]),Boolean.parseBoolean(params[2]),params[3]);
+				Cartel cartel = new Cartel(Integer.parseInt(params[0]), Integer.parseInt(params[1]),
+						Boolean.parseBoolean(params[2]), params[3]);
 				libroFences.add(cartel);
 			}
 		} catch (FileNotFoundException e) {
@@ -75,7 +75,7 @@ public class Controller implements Serializable {
 		libroFences.add(c);
 	}
 
-	public void saveFile() {
+	public void saveFences() {
 		try {
 			File file = new File("data.txt");
 			FileOutputStream fos = new FileOutputStream(file);
@@ -88,24 +88,45 @@ public class Controller implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showFences() {
 		for (Cartel c : libroFences) {
-			System.out.println(c.toString()+"\n");
+			System.out.println(c.toString() + "\n");
 		}
-		System.out.println("Total Bilboards: "+libroFences.size());
+		System.out.println("Total Bilboards: " + libroFences.size());
 	}
 	
-	public void showDangerous() {
+	public void loadFences() {
+		File file = new File("data.txt");
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Object object = ois.readObject();
+			Controller control = (Controller)object;
+			this.libroFences = control.libroFences;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	public void addDangerous() {
 		for (Cartel cartel : libroFences) {
-			int i = 0;
-			if(cartel.getAlto()*cartel.getAncho() >= 200000 && !cartel.equals(peligrosos.get(i))) {
+			if (cartel.getAlto() * cartel.getAncho() >= 200000) {
 				peligrosos.add(cartel);
-				i++;
 			}
 		}
 	}
-	
+
 	public void savePeligrosos() {
 		try {
 			File file = new File("peligrosos.txt");
@@ -119,6 +140,13 @@ public class Controller implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public void showDangerous() {
+		for (Cartel cartel : peligrosos) {
+			System.out.println(cartel.toString() + "\n");
+		}
+		System.out.println("Total of dangerous bilboards: "+ peligrosos.size());
+		
+	}
+
 }

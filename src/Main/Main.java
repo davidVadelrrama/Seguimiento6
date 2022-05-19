@@ -6,29 +6,26 @@ import model.*;
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
 	static Controller control = new Controller();
+
 	public static void main(String[] args) {
 
-		
+		control.loadFences();
 		int option = -1;
 		do {
-			System.out.println("---------BRAND-BILBOARD-MENU-----------" 
-					+ "\n 1) Import publicity bilboard"
-					+ "\n 2) Add new publicity bilboard"
-					+ "\n 3) Show all publicity bilboards" 
-					+ "\n 4) Report of dangerous bilboards"
-					+ "\n 0) quit");
+			System.out.println("---------BRAND-BILBOARD-MENU-----------" + "\n 1) Import publicity bilboards from data bases"
+					+ "\n 2) Add new publicity bilboard" + "\n 3) Show all publicity bilboards"
+					+ "\n 4) Report of dangerous bilboards" + "\n 0) quit");
 			option = sc.nextInt();
 			switchMenu(option);
 		} while (option != 0);
 	}
 
 	public static void switchMenu(int option) {
-		int option2;
 		switch (option) {
 		case 1:
-			System.out.println("1) Ingresar datos 1" + "\n2) ingresar datos 2");
-			option2 = sc.nextInt();
-			switchMenu2(option2);
+			control.loadFile1();
+			control.loadFile2();
+			control.saveFences();
 			break;
 
 		case 2:
@@ -51,31 +48,17 @@ public class Main {
 		case 3:
 			control.showFences();
 			break;
-			
+
 		case 4:
-			
-		break;
+			control.addDangerous();
+			control.savePeligrosos();
+			control.showDangerous();
+			break;
 		case 0:
 			System.out.println("good bye bitch");
-		break;
+			break;
 		}
-		
 
 	}
 
-	private static void switchMenu2(int option) {
-		
-		switch(option) {
-		
-		case 1:
-			control.loadFile1();
-			control.saveFile();
-		break;
-		
-		case 2:
-			control.loadFile2();
-		break;
-	
-		}
-	}
 }
